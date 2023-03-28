@@ -3,6 +3,8 @@ import { FaHeart, FaRegHeart } from 'react-icons/fa';
 import { UserAuth } from '../context/AuthContext';
 import { db } from '../firebase';
 import { arrayUnion, doc, updateDoc } from 'firebase/firestore';
+import { Fade } from 'react-reveal';
+
 
 const Movie = ({ item }) => {
   const [like, setLike] = useState(false);
@@ -28,6 +30,7 @@ const Movie = ({ item }) => {
   };
 
   return (
+    <Fade left duration={1000} delay={800} distance="30px">
     <div className='w-[160px] sm:w-[200px] md:w-[240px] lg:w-[280px] inline-block cursor-pointer relative p-2'>
       <img
         className='w-full h-auto block'
@@ -47,6 +50,9 @@ const Movie = ({ item }) => {
         </p>
       </div>
     </div>
+
+    </Fade>
+
   );
 };
 

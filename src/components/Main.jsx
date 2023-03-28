@@ -1,30 +1,42 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import requests from '../Request'
-
+import { Fade } from 'react-reveal';
 
 const Main = () => {
 
-    const [movies, setMovies] = useState([])
+        const [movies, setMovies] = useState([]);
+        const [movieIndex, setMovieIndex] = useState(0);
 
-    const movie = movies[Math.floor(Math.random() * movies.length)]
+        useEffect(() => {
+          axios.get(requests.requestPopular).then((response) => {
+            setMovies(response.data.results);
+          });
+        }, []);
 
-    useEffect(() => {
-        axios.get(requests.requestPopular).then((response) => {
-            setMovies(response.data.results)
-        })
-    }, [])
-    //console.log(movie);
+        useEffect(() => {
+          const interval = setInterval(() => {
+            setMovieIndex((prevIndex) => (prevIndex + 1) % movies.length);
+          }, 5000);
 
-    const truncateString = (str, num) => {
-        if(str?.length > num ){
+          return () => {
+            clearInterval(interval);
+          };
+        }, [movies]);
+
+        const movie = movies[movieIndex];
+
+        const truncateString = (str, num) => {
+          if (str?.length > num) {
             return str.slice(0, num) + '...';
-        } else{
+          } else {
             return str;
-        }
-    }
+          }
+        };
+
   return (
-    <div className='w-full h-[550px] text-white'>
+    <Fade top duration={1000} delay={700} distance="30px">
+            <div className='w-full h-[550px] text-white'>
         <div className="h-full w-full ">
             <div className='absolute w-full h-[550px] bg-gradient-to-r from-black'></div>
             <img className='w-full h-full object-cover' src={`https://image.tmdb.org/t/p/original/${movie?.backdrop_path}`} alt={movie?.title}/>
@@ -41,6 +53,8 @@ const Main = () => {
 
         </div>
     </div>
+    </Fade>
+
   )
 }
 

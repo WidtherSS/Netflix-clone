@@ -1,7 +1,8 @@
-import { async } from '@firebase/util'
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import {UserAuth} from '../context/AuthContext'
+import { Fade } from 'react-reveal';
+
 
 
 const SignUp = () => {
@@ -22,6 +23,7 @@ const SignUp = () => {
     }
 
   return (
+    <Fade top duration={1000} delay={700} distance="30px">
     <div className='w-full h-screen'>
         <img className='hidden sm:block absolute w-full h-full object-cover' src="https://assets.nflxext.com/ffe/siteui/vlv3/8f12b4f0-a894-4d5b-9c36-5ba391c63fbe/362e6f4d-fa51-4f4d-b592-58829f0f7599/DK-en-20230320-popsignuptwoweeks-perspective_alpha_website_medium.jpg" alt="/"/>
         <div className='bg-black/60 fixed top-0 left-0 w-full h-screen'></div>
@@ -38,7 +40,7 @@ const SignUp = () => {
                             <p>Need Help?</p>
                         </div>
                         <p className='py-8'><span className='text-gray-600'>Already subscribed to Netflix?</span>{' '}
-                            <Link to={'/loogin'}>
+                            <Link to={'/login'}>
                                 Sign In
                             </Link>
                         </p>
@@ -46,8 +48,9 @@ const SignUp = () => {
                 </div>
             </div>
         </div>
-
     </div>
+    </Fade>
+
   )
 }
 
